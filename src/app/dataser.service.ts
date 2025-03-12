@@ -6,9 +6,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataserService {
+  private apiUrl = 'https://api.restful-api.dev/objects';
+
   constructor(private http: HttpClient) {}
-  url = 'https://api.restful-api.dev/objects';
-  getData(): Observable<any> {
-    return this.http.get(this.url);
+
+  getData(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
+
+  addData(item: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, item);
+  }
+
+  // deleteData(id: string): Observable<void> {
+  //   return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  // }
+  // the API dosn't support delete methouds
 }
